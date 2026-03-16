@@ -37,6 +37,15 @@ Optional:
   and give it class:
   - `kb-switch-dots`
 
+Per-image custom text/button (optional):
+
+1. Add a Group block as overlay container with class:
+   - `kb-switch-captions`
+2. Inside it, add one Group per slide with class:
+   - `kb-slide-caption`
+3. Put heading/text/button inside each caption group.
+4. Keep caption order exactly the same as image order.
+
 ## 2) Add the CSS
 
 Copy contents of `kadence-hero-switching.css` into:

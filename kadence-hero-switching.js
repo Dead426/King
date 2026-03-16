@@ -17,8 +17,12 @@
     );
     if (slides.length < 2) return;
 
-    var intervalMs = 3200;
-    var slideMs = 800;
+    var captions = Array.prototype.slice.call(
+      wrapper.querySelectorAll(".kb-slide-caption")
+    );
+
+    var intervalMs = 3600;
+    var slideMs = 850;
     var index = 0;
     var timerId = null;
 
@@ -58,6 +62,15 @@
       });
     }
 
+    function updateCaptions() {
+      if (captions.length !== slides.length) return;
+      captions.forEach(function (caption, i) {
+        var isActive = i === index;
+        caption.classList.toggle("is-active", isActive);
+        caption.setAttribute("aria-hidden", isActive ? "false" : "true");
+      });
+    }
+
     function goTo(nextIndex) {
       if (nextIndex === index) return;
 
@@ -76,6 +89,7 @@
 
       index = nextIndex;
       applyVisibility();
+      updateCaptions();
       updateDots();
 
       window.setTimeout(function () {
@@ -99,6 +113,7 @@
       if (i === 0) slide.classList.add("is-active");
     });
     applyVisibility();
+    updateCaptions();
     updateDots();
     restartTimer();
   }
