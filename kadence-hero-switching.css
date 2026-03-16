@@ -1,0 +1,87 @@
+/* Core hero section shell */
+.kb-hero-switch {
+  position: relative;
+  overflow: hidden;
+  min-height: clamp(420px, 65vh, 760px);
+  background: radial-gradient(circle at 50% 35%, #5f759a 0%, #1f3559 45%, #09142c 100%);
+  color: #fff;
+  text-align: center;
+  padding: clamp(2rem, 5vw, 3.5rem) 1rem 2rem;
+}
+
+.kb-hero-switch .kb-hero-content {
+  position: relative;
+  z-index: 3;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+/* Wraps the set of switchable images */
+.kb-hero-switch .kb-switch-media {
+  position: relative;
+  width: min(680px, 92%);
+  margin: 1.25rem auto 0;
+}
+
+/* Any image block with this class can switch */
+.kb-hero-switch .kb-switch-image {
+  position: absolute;
+  inset: 0;
+  margin: 0 auto;
+  opacity: 0;
+  transform: translateY(6px) scale(0.995);
+  transition: opacity var(--kb-switch-fade, 700ms) ease,
+    transform var(--kb-switch-fade, 700ms) ease;
+  pointer-events: none;
+}
+
+.kb-hero-switch .kb-switch-image:first-child {
+  position: relative;
+  opacity: 1;
+  transform: none;
+}
+
+.kb-hero-switch .kb-switch-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.kb-hero-switch .kb-switch-image.is-active {
+  position: relative;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  z-index: 2;
+}
+
+/* Optional dots */
+.kb-hero-switch .kb-switch-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.kb-hero-switch .kb-switch-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  padding: 0;
+}
+
+.kb-hero-switch .kb-switch-dot.is-active {
+  background: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kb-hero-switch .kb-switch-image {
+    transition: none;
+    transform: none;
+  }
+}
