@@ -5,14 +5,14 @@ Kadence Blocks in WordPress.
 
 The effect is built from:
 
-- `kadence-hero-switching.css` (layout + fade styles)
+- `kadence-hero-switching.css` (layout + slide styles)
 - `kadence-hero-switching.js` (automatic image switching)
 
 ## What this gives you
 
 - Multiple hero images stacked in one spot
 - Automatic switching every few seconds
-- Smooth fade transition
+- Smooth right-to-left slide transition
 - Optional manual dots
 - Supports multiple hero sections on the same page
 
@@ -57,8 +57,8 @@ Make sure the script loads on pages where the hero exists.
 
 In `kadence-hero-switching.js`, you can adjust:
 
-- `intervalMs` (default 3000) for switch speed
-- `fadeMs` (default 700) for transition speed
+- `intervalMs` (default 3200) for switch speed
+- `slideMs` (default 800) for transition speed
 
 In `kadence-hero-switching.css`, you can adjust:
 

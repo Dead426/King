@@ -11,7 +11,7 @@
 
 .kb-hero-switch .kb-hero-content {
   position: relative;
-  z-index: 3;
+  z-index: 5;
   max-width: 980px;
   margin: 0 auto;
 }
@@ -19,40 +19,44 @@
 /* Wraps the set of switchable images */
 .kb-hero-switch .kb-switch-media {
   position: relative;
-  width: min(680px, 92%);
+  width: min(1100px, 92%);
   margin: 1.25rem auto 0;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
 }
 
 /* Any image block with this class can switch */
 .kb-hero-switch .kb-switch-image {
   position: absolute;
   inset: 0;
-  margin: 0 auto;
-  opacity: 0;
-  transform: translateY(6px) scale(0.995);
-  transition: opacity var(--kb-switch-fade, 700ms) ease,
-    transform var(--kb-switch-fade, 700ms) ease;
-  pointer-events: none;
+  margin: 0;
+  transform: translateX(100%);
+  transition: transform var(--kb-slide-duration, 800ms) cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+  z-index: 1;
 }
 
+/* Fallback before JS runs */
 .kb-hero-switch .kb-switch-image:first-child {
-  position: relative;
-  opacity: 1;
-  transform: none;
+  transform: translateX(0);
 }
 
 .kb-hero-switch .kb-switch-image img {
   display: block;
   width: 100%;
-  height: auto;
-  margin: 0 auto;
+  height: 100%;
+  object-fit: cover;
 }
 
+/* Active image in center */
 .kb-hero-switch .kb-switch-image.is-active {
-  position: relative;
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  pointer-events: auto;
+  transform: translateX(0);
+  z-index: 3;
+}
+
+/* Previous image moves out to left */
+.kb-hero-switch .kb-switch-image.is-prev {
+  transform: translateX(-100%);
   z-index: 2;
 }
 
@@ -82,6 +86,5 @@
 @media (prefers-reduced-motion: reduce) {
   .kb-hero-switch .kb-switch-image {
     transition: none;
-    transform: none;
   }
 }

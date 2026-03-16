@@ -17,12 +17,12 @@
     );
     if (slides.length < 2) return;
 
-    var intervalMs = 3000;
-    var fadeMs = 700;
+    var intervalMs = 3200;
+    var slideMs = 800;
     var index = 0;
     var timerId = null;
 
-    wrapper.style.setProperty("--kb-switch-fade", fadeMs + "ms");
+    wrapper.style.setProperty("--kb-slide-duration", slideMs + "ms");
 
     var dotsContainer = wrapper.querySelector(".kb-switch-dots");
     if (!dotsContainer) {
@@ -37,30 +37,55 @@
       dot.type = "button";
       dot.setAttribute("aria-label", "Go to slide " + (slideIndex + 1));
       dot.addEventListener("click", function () {
-        setActive(slideIndex);
+        goTo(slideIndex);
         restartTimer();
       });
       dotsContainer.appendChild(dot);
       return dot;
     });
 
-    function setActive(nextIndex) {
-      index = nextIndex;
+    function updateDots() {
+      dots.forEach(function (dot, i) {
+        var isActive = i === index;
+        dot.classList.toggle("is-active", isActive);
+        dot.setAttribute("aria-current", isActive ? "true" : "false");
+      });
+    }
 
+    function applyVisibility() {
       slides.forEach(function (slide, i) {
-        slide.classList.toggle("is-active", i === index);
         slide.setAttribute("aria-hidden", i === index ? "false" : "true");
       });
+    }
 
-      dots.forEach(function (dot, i) {
-        dot.classList.toggle("is-active", i === index);
-        dot.setAttribute("aria-current", i === index ? "true" : "false");
-      });
+    function goTo(nextIndex) {
+      if (nextIndex === index) return;
+
+      var prevIndex = index;
+
+      slides[prevIndex].classList.remove("is-prev");
+      slides[nextIndex].classList.remove("is-prev");
+
+      // Force layout so the browser applies the transition consistently.
+      // eslint-disable-next-line no-unused-expressions
+      slides[nextIndex].offsetWidth;
+
+      slides[prevIndex].classList.remove("is-active");
+      slides[prevIndex].classList.add("is-prev");
+      slides[nextIndex].classList.add("is-active");
+
+      index = nextIndex;
+      applyVisibility();
+      updateDots();
+
+      window.setTimeout(function () {
+        slides[prevIndex].classList.remove("is-prev");
+      }, slideMs + 40);
     }
 
     function tick() {
       var nextIndex = index + 1 >= slides.length ? 0 : index + 1;
-      setActive(nextIndex);
+      goTo(nextIndex);
     }
 
     function restartTimer() {
@@ -69,7 +94,12 @@
       timerId = window.setInterval(tick, intervalMs);
     }
 
-    setActive(0);
+    slides.forEach(function (slide, i) {
+      slide.classList.remove("is-active", "is-prev");
+      if (i === 0) slide.classList.add("is-active");
+    });
+    applyVisibility();
+    updateDots();
     restartTimer();
   }
 
