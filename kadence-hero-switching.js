@@ -12,6 +12,9 @@
    * - Two or more child elements with class .kb-switch-image
    */
   function initHeroSwitch(wrapper) {
+    if (wrapper.dataset.kbSwitchInit === "1") return;
+    wrapper.dataset.kbSwitchInit = "1";
+
     var slides = Array.prototype.slice.call(
       wrapper.querySelectorAll(".kb-switch-image")
     );
@@ -47,6 +50,38 @@
       dotsContainer.appendChild(dot);
       return dot;
     });
+
+    var arrowsContainer = wrapper.querySelector(".kb-switch-arrows");
+    if (!arrowsContainer) {
+      arrowsContainer = document.createElement("div");
+      arrowsContainer.className = "kb-switch-arrows";
+      wrapper.appendChild(arrowsContainer);
+    }
+
+    var prevButton = document.createElement("button");
+    prevButton.type = "button";
+    prevButton.className = "kb-switch-arrow kb-switch-arrow-prev";
+    prevButton.setAttribute("aria-label", "Previous slide");
+    prevButton.textContent = "‹";
+    prevButton.addEventListener("click", function () {
+      var nextIndex = index - 1 < 0 ? slides.length - 1 : index - 1;
+      goTo(nextIndex);
+      restartTimer();
+    });
+
+    var nextButton = document.createElement("button");
+    nextButton.type = "button";
+    nextButton.className = "kb-switch-arrow kb-switch-arrow-next";
+    nextButton.setAttribute("aria-label", "Next slide");
+    nextButton.textContent = "›";
+    nextButton.addEventListener("click", function () {
+      var nextIndex = index + 1 >= slides.length ? 0 : index + 1;
+      goTo(nextIndex);
+      restartTimer();
+    });
+
+    arrowsContainer.appendChild(prevButton);
+    arrowsContainer.appendChild(nextButton);
 
     function updateDots() {
       dots.forEach(function (dot, i) {

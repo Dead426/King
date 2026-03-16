@@ -95,9 +95,6 @@
 .kb-hero-switch .kb-slide-caption {
   position: absolute;
   inset: 0;
-  display: grid;
-  place-content: center;
-  text-align: center;
   padding: clamp(16px, 3vw, 40px);
   opacity: 0;
   transform: translateY(10px);
@@ -119,8 +116,9 @@
 /* Optional dots */
 .kb-hero-switch .kb-switch-dots {
   position: absolute;
-  right: clamp(12px, 2vw, 28px);
+  left: 50%;
   bottom: clamp(12px, 2vw, 28px);
+  transform: translateX(calc(-50% - 76px));
   z-index: 12;
   display: flex;
   align-items: center;
@@ -139,6 +137,38 @@
 
 .kb-hero-switch .kb-switch-dot.is-active {
   background: #fff;
+}
+
+/* Optional arrow navigation */
+.kb-hero-switch .kb-switch-arrows {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(8px, 2vw, 22px);
+  transform: translateX(-50%);
+  z-index: 12;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.kb-hero-switch .kb-switch-arrow {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 24px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+}
+
+.kb-hero-switch .kb-switch-arrow:hover {
+  background: rgba(255, 255, 255, 0.18);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -36,6 +36,8 @@ Optional:
 - Add another empty block (for example a Group block) where you want the dots,
   and give it class:
   - `kb-switch-dots`
+- Add another empty block where you want arrow navigation, class:
+  - `kb-switch-arrows`
 
 Per-image custom text/button (optional):
 
@@ -45,6 +47,13 @@ Per-image custom text/button (optional):
    - `kb-slide-caption`
 3. Put heading/text/button inside each caption group.
 4. Keep caption order exactly the same as image order.
+
+Without custom coding, text/button position can be adjusted directly in Kadence:
+
+- Select each `kb-slide-caption` group
+- Use block spacing (padding/margin) controls to move the content
+- Use text alignment controls for left/center/right
+- Use width/max-width controls on inner content group for layout
 
 ## 2) Add the CSS
 
